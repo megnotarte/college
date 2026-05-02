@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clear Path College Planning</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F0EDE8;
+    color: #1A1A2A;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 36px 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  .header {
+    border-left: 5px solid #4A8C8C;
+    padding: 4px 0 4px 18px;
+    margin-bottom: 22px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4A8C8C;
+    margin-bottom: 4px;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 46px;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .rule-thin { border: none; border-top: 1px solid #D6D2CB; margin: 8px 0; }
+  .tagline {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #1A1A2A;
+  }
+
+  /* TWO COLUMN */
+  .body {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+    flex: 1;
+  }
+
+  /* LABELS */
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4A8C8C;
+    margin-bottom: 5px;
+    margin-top: 20px;
+  }
+  .label:first-child { margin-top: 0; }
+
+  hr {
+    border: none;
+    border-top: 0.75px solid #D6D2CB;
+    margin-bottom: 12px;
+  }
+
+  /* BODY TEXT */
+  .body-text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #5C5C5C;
+    margin-bottom: 0;
+  }
+
+  /* SERVICES */
+  .service { margin-bottom: 10px; }
+  .service-title { font-size: 16px; font-weight: 600; color: #1A1A2A; }
+  .service-desc { font-size: 14px; line-height: 1.55; color: #5C5C5C; }
+
+  /* TIMELINE */
+  .timeline { margin-top: 2px; display: flex; flex-direction: column; }
+  .milestone { display: flex; gap: 14px; }
+  .milestone:last-child { padding-bottom: 0; }
+  .dot-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 18px; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: #4A8C8C; flex-shrink: 0; margin-top: 18px; }
+  .connector { width: 2px; flex: 1; background: #D6D2CB; margin-top: 4px; margin-bottom: 4px; min-height: 12px; }
+  .milestone:last-child .connector { display: none; }
+  .milestone-card { background: white; border: 1px solid #E8E4DE; border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; flex: 1; }
+  .m-timing { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 4px; }
+  .m-phase { font-size: 18px; font-weight: 600; color: #1A1A2A; line-height: 1.2; margin-bottom: 5px; }
+  .m-desc { font-size: 13px; color: #5C5C5C; line-height: 1.5; }
+
+  /* RIGHT COLUMN */
+  .right { display: flex; flex-direction: column; gap: 12px; padding-top: 0; }
+
+  /* BOXES */
+  .box { border-radius: 5px; overflow: hidden; }
+
+  .box-header {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    text-align: center;
+    background: #4A8C8C;
+    color: white;
+  }
+  .box-body { padding: 12px 14px; }
+
+  /* Early Start */
+  .early-box { border: 1px solid #D6D2CB; background: white; }
+  .early-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: #1A1A2A; text-align: center; margin-bottom: 6px; }
+  .early-desc { font-size: 13px; line-height: 1.55; color: #5C5C5C; text-align: center; margin-bottom: 8px; }
+  .early-price { font-family: 'DM Serif Display', serif; font-size: 32px; color: #1A1A2A; text-align: center; }
+
+  /* Full Engagement */
+  .engage-box { background: #1A1A2A; }
+  .engage-box .box-header { background: #4A8C8C; }
+  .engage-price { font-family: 'DM Serif Display', serif; font-size: 34px; color: white; text-align: center; line-height: 1; margin-bottom: 6px; }
+  .engage-detail { font-size: 13px; color: #8AABAB; text-align: center; line-height: 1.5; }
+
+  /* Not included */
+  .not-box { background: white; border: 1px solid #D6D2CB; border-radius: 5px; padding: 12px 14px; }
+  .not-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 5px; }
+  .not-rule { border: none; border-top: 0.75px solid #D6D2CB; margin-bottom: 7px; }
+  .not-text { font-size: 13px; line-height: 1.55; color: #5C5C5C; font-style: italic; }
+
+  /* About */
+  .about-box { background: white; border: 1px solid #D6D2CB; border-radius: 5px; padding: 12px 14px; }
+  .about-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 5px; }
+  .about-rule { border: none; border-top: 0.75px solid #D6D2CB; margin-bottom: 7px; }
+  .about-text { font-size: 13px; line-height: 1.55; color: #5C5C5C; }
+
+  /* CTA */
+  .cta-box { background: #1A1A2A; border-radius: 5px; padding: 16px 14px; text-align: center; }
+  .cta-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; margin-bottom: 4px; }
+  .cta-desc { font-size: 13px; color: #8AABAB; line-height: 1.5; margin-bottom: 7px; }
+  .cta-email { font-size: 14px; font-weight: 600; color: #4A8C8C; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 0.75px solid #D6D2CB;
+    padding-top: 10px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 10px;
+    color: #B0AAA0;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── RESPONSIVE ── */
+
+  /* Tablet: sidebar stacks below, still readable */
+  @media (max-width: 720px) {
+    .page {
+      padding: 24px 24px 20px;
+    }
+
+    .logo {
+      font-size: 34px;
+    }
+
+    .body {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .right {
+      gap: 12px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .page {
+      padding: 20px 18px 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+    }
+
+    .tagline {
+      font-size: 13px;
+    }
+
+    .eyebrow {
+      font-size: 9px;
+    }
+
+    .body-text {
+      font-size: 15px;
+    }
+
+    .m-phase {
+      font-size: 16px;
+    }
+
+    .engage-price {
+      font-size: 28px;
+    }
+
+    .early-price {
+      font-size: 26px;
+    }
+
+    .cta-title {
+      font-size: 19px;
+    }
+  }
+
+  @media print {
+    body { margin: 0; }
+    .page { max-width: 100%; padding: 24px 28px 16px; }
+    .body { grid-template-columns: 1fr 280px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="eyebrow">College Planning &middot; Project Management Approach</div>
+    <div class="logo">Clear Path College Planning</div>
+    <div class="rule-thin"></div>
+    <div class="tagline">College applications are a project. Treat them like one.</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT -->
+    <div class="left">
+
+      <div class="label">What is Clear Path?</div>
+      <hr>
+      <p class="body-text">Most families experience the college application process as chaotic &mdash; a blur of deadlines, competing priorities, and anxiety. Clear Path brings professional project management discipline to the process. You get a real plan, a clear timeline, and someone accountable for keeping it moving.</p>
+
+      <div class="label">What&rsquo;s Included</div>
+      <hr>
+      <div class="service">
+        <div class="service-title">School List Development</div>
+        <div class="service-desc">Start with 20+ options. Narrow to 8&ndash;10 schools that genuinely fit &mdash; academically, culturally, and personally.</div>
+      </div>
+      <div class="service">
+        <div class="service-title">Professor Outreach Coaching</div>
+        <div class="service-desc">Connect with faculty before you apply. A research-backed way to evaluate real fit that most families never think to do.</div>
+      </div>
+      <div class="service">
+        <div class="service-title">Timeline &amp; Deadline Management</div>
+        <div class="service-desc">A shared project plan from fall junior year through submission. Every milestone, mapped.</div>
+      </div>
+      <div class="service">
+        <div class="service-title">Structured Check-ins</div>
+        <div class="service-desc">Lighter touchpoints early, weekly sessions during application crunch (Sept&ndash;Nov senior year).</div>
+      </div>
+      <div class="service">
+        <div class="service-title">Parent Communication</div>
+        <div class="service-desc">Regular updates so you&rsquo;re informed without becoming the project manager yourself.</div>
+      </div>
+
+      <div class="label">The Timeline</div>
+      <hr>
+      <div class="timeline">
+        <div class="milestone">
+          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
+          <div class="milestone-card"><div class="m-timing">Fall, Junior Year</div><div class="m-phase">Kickoff &amp; Discovery</div><div class="m-desc">Values, goals, and building the long list together</div></div>
+        </div>
+        <div class="milestone">
+          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
+          <div class="milestone-card"><div class="m-timing">Spring, Junior Year</div><div class="m-phase">Research &amp; Outreach</div><div class="m-desc">Campus research, professor outreach, narrowing the list</div></div>
+        </div>
+        <div class="milestone">
+          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
+          <div class="milestone-card"><div class="m-timing">Summer Before Senior Year</div><div class="m-phase">Strategy &amp; Setup</div><div class="m-desc">Final list locked, application strategy, Common App prep</div></div>
+        </div>
+        <div class="milestone">
+          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
+          <div class="milestone-card"><div class="m-timing">Sept &ndash; Nov, Senior Year</div><div class="m-phase">Application Crunch</div><div class="m-desc">Weekly check-ins, deadline tracking, submission</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+      <!-- Full Engagement -->
+      <div class="box engage-box">
+        <div class="box-header">Full Engagement</div>
+        <div class="box-body">
+          <div class="engage-price">$5,000</div>
+          <div class="engage-detail">Fall, Junior Year &ndash; Fall, Senior Year<br>Flat fee &middot; Payable in 4 installments over the engagement</div>
+        </div>
+      </div>
+
+      <!-- Early Start -->
+      <div class="box early-box">
+        <div class="box-header">Early Start Session</div>
+        <div class="box-body">
+          <div class="early-title">Freshman &amp; Sophomore Families</div>
+          <div class="early-desc">A single 90-minute session to understand the application process, review what to build toward, and ask every question you didn&rsquo;t know you had. Available anytime &mdash; fall is ideal.</div>
+          <div class="early-price">$500</div>
+        </div>
+      </div>
+
+      <!-- Not Included -->
+      <div class="not-box">
+        <div class="not-label">Not Included</div>
+        <div class="not-rule"></div>
+        <div class="not-text">Clear Path focuses on the process and the timeline &mdash; not essays, financial aid, or test prep.</div>
+      </div>
+
+      <!-- About -->
+      <div class="about-box">
+        <div class="about-label">About Megan</div>
+        <div class="about-rule"></div>
+        <div class="about-text">Megan Notarte is a PMP-certified executive leader with 15+ years managing complex initiatives at tech organizations. She has spent her career building systems that help people navigate complicated, high-stakes processes without losing their minds. She brought that same discipline to college planning for her own family, and Clear Path is the result: a structured, human approach to one of the most stressful projects a family will ever take on.</div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-box">
+        <div class="cta-title">Let&rsquo;s talk.</div>
+        <div class="cta-desc">Free 30-minute call to see if<br>Clear Path is the right fit.</div>
+        <div class="cta-email">megan@clearpathcollege.com</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">Clear Path College Planning &middot; clearpathcollege.com</div>
+
+</div>
+</body>
+</html>
