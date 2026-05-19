@@ -3,354 +3,977 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clear Path College Planning</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<title>College Chartered — College Application Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
 
-  html, body {
-    height: 100%;
-  }
+/* ── Tokens ── */
+:root {
+  --white: #FFFFFF;
+  --warm:  #EDF4F0;
+  --dark:  #0D1F18;
+  --clay:  #1A6B47;
+  --clay-light: #B4DECA;
+  --muted: #476057;
+  --border: #C4DAD0;
+}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #F0EDE8;
-    color: #1A1A2A;
-  }
+/* ── Base ── */
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  font-size: 19px;
+  line-height: 1.65;
+}
 
-  .page {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 32px 36px 24px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+/* ── Accessibility utilities ── */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 
-  /* HEADER */
-  .header {
-    border-left: 5px solid #4A8C8C;
-    padding: 4px 0 4px 18px;
-    margin-bottom: 22px;
-  }
-  .eyebrow {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #4A8C8C;
-    margin-bottom: 4px;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 46px;
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-  .rule-thin { border: none; border-top: 1px solid #D6D2CB; margin: 8px 0; }
-  .tagline {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: 15px;
-    color: #1A1A2A;
-  }
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: var(--clay);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { top: 0; }
 
-  /* TWO COLUMN */
-  .body {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 32px;
-    flex: 1;
-  }
+:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
-  /* LABELS */
-  .label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #4A8C8C;
-    margin-bottom: 5px;
-    margin-top: 20px;
-  }
-  .label:first-child { margin-top: 0; }
+/* ── Nav ── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
 
-  hr {
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 0 72px;
+  height: 72px;
+  position: relative;
+}
+
+.nav-brand {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--dark);
+  text-decoration: none;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-primary {
+  display: flex;
+  list-style: none;
+  gap: 36px;
+  align-items: center;
+  flex: 1;
+  /* overflow hidden so we can measure without wrap */
+  overflow: hidden;
+}
+
+.nav-link {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--dark); }
+
+.nav-cta {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--clay);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--clay);
+  padding-bottom: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: auto; /* push to right */
+}
+.nav-cta:hover { color: var(--dark); border-color: var(--dark); }
+
+/* Priority-plus More button */
+.nav-more {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 4px;
+  white-space: nowrap;
+}
+.nav-more-btn:hover { color: var(--dark); }
+.nav-more-btn::after {
+  content: '';
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+}
+.nav-more-btn[aria-expanded="true"] { color: var(--dark); }
+
+.nav-overflow {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.nav-overflow[aria-hidden="true"] { display: none; }
+
+.nav-overflow a {
+  display: block;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.nav-overflow a:last-child { border-bottom: none; }
+.nav-overflow a:hover { background: var(--warm); color: var(--dark); }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--warm);
+  border-bottom: 1px solid var(--border);
+  padding: 96px 72px 80px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--clay);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.hero-h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 36px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-h1 em { font-style: italic; color: var(--clay); }
+
+.hero-body {
+  font-size: 20px;
+  line-height: 1.75;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+
+.btn-clay {
+  display: inline-block;
+  padding: 18px 44px;
+  background: var(--clay);
+  color: #fff;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.btn-clay:hover { background: var(--dark); }
+
+
+/* ── What is College Chartered ── */
+.intro-section {
+  padding: 80px 72px;
+  border-bottom: 1px solid var(--border);
+}
+.intro-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.intro-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.intro-body {
+  font-size: 18px;
+  line-height: 1.78;
+  color: var(--muted);
+  font-weight: 300;
+}
+.intro-body + .intro-body { margin-top: 16px; }
+.intro-body--lead { font-weight: 400; color: var(--dark); }
+
+
+/* ── Services ── */
+.services-section {
+  background: var(--warm);
+  border-bottom: 1px solid var(--border);
+}
+.services-inner {
+  padding: 80px 72px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.sec-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+.sec-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 48px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+/* fills the empty 6th cell so the border background doesn't show through */
+.services-grid::after {
+  content: '';
+  background: var(--white);
+}
+.service-item {
+  padding: 32px 36px;
+  background: var(--white);
+}
+.service-name {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.service-desc {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ── Timeline (lives in intro section right column) ── */
+.intro-timeline .timeline-list { margin-top: 0; }
+.intro-timeline .timeline-item {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.timeline-list {
+  list-style: none;
+  margin-top: 44px;
+  padding-left: 24px;
+  border-left: 1.5px solid var(--border);
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 195px 1fr;
+  gap: 44px;
+  padding: 0 0 40px 32px;
+  position: relative;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 6px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--clay);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1.5px var(--clay);
+}
+
+.timeline-time {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  padding-top: 5px;
+  line-height: 1.4;
+}
+.timeline-phase {
+  font-family: 'Fraunces', serif;
+  font-size: 23px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.timeline-desc {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── Pricing ── */
+.pricing-section {
+  background: var(--warm);
+  border-bottom: 1px solid var(--border);
+}
+.pricing-inner {
+  padding: 80px 72px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.pricing-lede {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-top: 12px;
+  margin-bottom: 44px;
+  line-height: 1.65;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.price-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 44px;
+}
+.price-card.featured {
+  background: var(--dark);
+  border-color: var(--dark);
+}
+.price-type {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 20px;
+}
+.price-card.featured .price-type { color: var(--clay-light); }
+
+.price-amount {
+  font-family: 'Fraunces', serif;
+  font-size: 68px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+.price-card.featured .price-amount { color: var(--white); }
+
+.price-period {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-weight: 300;
+  font-style: italic;
+}
+.price-card.featured .price-period { color: rgba(255,255,255,.5); }
+
+.price-desc {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+}
+.price-card.featured .price-desc { color: rgba(255,255,255,.62); }
+
+/* ── Testimonial (inside intro left column) ── */
+.intro-testimonial {
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.intro-testimonial-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.intro-testimonial-cite {
+  display: block;
+  font-size: 13px;
+  font-style: normal;
+  color: var(--border);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── About ── */
+.about-section {
+  padding: 80px 72px;
+  border-bottom: 1px solid var(--border);
+}
+.about-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 28px;
+  margin-top: 12px;
+}
+.about-h2 em { font-style: italic; color: var(--clay); }
+
+.about-body {
+  font-size: 18px;
+  line-height: 1.78;
+  color: var(--muted);
+  font-weight: 300;
+}
+.about-body + .about-body { margin-top: 16px; }
+
+.about-cred {
+  margin-top: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.cta-card {
+  background: var(--clay);
+  padding: 48px 44px;
+  text-align: center;
+}
+.cta-title {
+  font-family: 'Fraunces', serif;
+  font-size: 36px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.cta-desc {
+  font-size: 17px;
+  color: rgba(255,255,255,.8);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 16px 36px;
+  background: var(--white);
+  color: var(--clay);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background .2s, color .2s;
+}
+.cta-btn:hover { background: var(--dark); color: var(--white); }
+
+.cta-email {
+  margin-top: 16px;
+  font-size: 13px;
+  color: rgba(255,255,255,.62);
+}
+.cta-email a {
+  color: rgba(255,255,255,.82);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cta-email a:hover { color: var(--white); }
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.footer-brand {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  color: var(--muted);
+}
+.footer-note {
+  font-size: 12px;
+  color: var(--border);
+  letter-spacing: 0.06em;
+}
+
+/* ── Responsive ── */
+
+/* Tablet */
+@media (max-width: 960px) {
+  .site-nav { padding: 0 36px; }
+
+  .hero { padding: 72px 36px 64px; }
+  .hero-h1 { font-size: 52px; }
+
+  .intro-section { padding: 64px 36px; }
+  .intro-inner { gap: 48px; }
+
+  .services-inner { padding: 64px 36px; }
+
+  .timeline-item { grid-template-columns: 160px 1fr; gap: 28px; }
+
+  .pricing-inner { padding: 64px 36px; }
+
+  .about-section { padding: 64px 36px; }
+  .about-inner { gap: 48px; }
+
+  footer { padding: 24px 36px; }
+}
+
+/* Narrow tablet — stack two-column layouts */
+@media (max-width: 700px) {
+  .site-nav { padding: 0 24px; height: 60px; gap: 20px; }
+
+  .hero { padding: 56px 24px 48px; }
+  .hero-h1 { font-size: 40px; }
+  .hero-body { font-size: 18px; }
+  .btn-clay { padding: 16px 36px; }
+
+  .intro-section { padding: 52px 24px; }
+  .intro-inner { grid-template-columns: 1fr; gap: 36px; }
+
+  .services-inner { padding: 52px 24px; }
+  .sec-h2 { font-size: 30px; margin-bottom: 32px; }
+  .services-grid {
+    grid-template-columns: 1fr;
     border: none;
-    border-top: 0.75px solid #D6D2CB;
-    margin-bottom: 12px;
+  }
+  .service-item {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-left: none;
+    border-top: none;
+    padding: 28px 0;
+  }
+  .service-item:first-child { border-top: 1px solid var(--border) !important; }
+  .service-item:last-child { border-bottom: 1px solid var(--border) !important; }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding-bottom: 32px;
   }
 
-  /* BODY TEXT */
-  .body-text {
-    font-size: 16px;
-    line-height: 1.65;
-    color: #5C5C5C;
-    margin-bottom: 0;
-  }
+  .pricing-inner { padding: 52px 24px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .price-card.featured { order: -1; }
 
-  /* SERVICES */
-  .service { margin-bottom: 10px; }
-  .service-title { font-size: 16px; font-weight: 600; color: #1A1A2A; }
-  .service-desc { font-size: 14px; line-height: 1.55; color: #5C5C5C; }
+  .about-section { padding: 52px 24px; }
+  .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  .about-h2 { font-size: 34px; margin-top: 0; }
+  .intro-h2 { font-size: 34px; }
 
-  /* TIMELINE */
-  .timeline { margin-top: 2px; display: flex; flex-direction: column; }
-  .milestone { display: flex; gap: 14px; }
-  .milestone:last-child { padding-bottom: 0; }
-  .dot-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 18px; }
-  .dot { width: 14px; height: 14px; border-radius: 50%; background: #4A8C8C; flex-shrink: 0; margin-top: 18px; }
-  .connector { width: 2px; flex: 1; background: #D6D2CB; margin-top: 4px; margin-bottom: 4px; min-height: 12px; }
-  .milestone:last-child .connector { display: none; }
-  .milestone-card { background: white; border: 1px solid #E8E4DE; border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; flex: 1; }
-  .m-timing { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 4px; }
-  .m-phase { font-size: 18px; font-weight: 600; color: #1A1A2A; line-height: 1.2; margin-bottom: 5px; }
-  .m-desc { font-size: 13px; color: #5C5C5C; line-height: 1.5; }
-
-  /* RIGHT COLUMN */
-  .right { display: flex; flex-direction: column; gap: 12px; padding-top: 0; }
-
-  /* BOXES */
-  .box { border-radius: 5px; overflow: hidden; }
-
-  .box-header {
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 7px 14px;
+  footer {
+    padding: 20px 24px;
+    flex-direction: column;
     text-align: center;
-    background: #4A8C8C;
-    color: white;
   }
-  .box-body { padding: 12px 14px; }
+}
 
-  /* Early Start */
-  .early-box { border: 1px solid #D6D2CB; background: white; }
-  .early-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: #1A1A2A; text-align: center; margin-bottom: 6px; }
-  .early-desc { font-size: 13px; line-height: 1.55; color: #5C5C5C; text-align: center; margin-bottom: 8px; }
-  .early-price { font-family: 'DM Serif Display', serif; font-size: 32px; color: #1A1A2A; text-align: center; }
+/* Mobile */
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 32px; }
+  .hero-body { font-size: 17px; }
+  .price-amount { font-size: 52px; }
+  .price-card { padding: 32px 28px; }
+  .testimonial-placeholder blockquote { font-size: 18px; }
+  .cta-card { padding: 40px 28px; }
+  .cta-title { font-size: 30px; }
+}
 
-  /* Full Engagement */
-  .engage-box { background: #1A1A2A; }
-  .engage-box .box-header { background: #4A8C8C; }
-  .engage-price { font-family: 'DM Serif Display', serif; font-size: 34px; color: white; text-align: center; line-height: 1; margin-bottom: 6px; }
-  .engage-detail { font-size: 13px; color: #8AABAB; text-align: center; line-height: 1.5; }
+/* Smooth scroll + sticky-nav offset for anchor links */
+html { scroll-behavior: smooth; }
+section[id], div[id] { scroll-margin-top: 88px; }
 
-  /* Not included */
-  .not-box { background: white; border: 1px solid #D6D2CB; border-radius: 5px; padding: 12px 14px; }
-  .not-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 5px; }
-  .not-rule { border: none; border-top: 0.75px solid #D6D2CB; margin-bottom: 7px; }
-  .not-text { font-size: 13px; line-height: 1.55; color: #5C5C5C; font-style: italic; }
-
-  /* About */
-  .about-box { background: white; border: 1px solid #D6D2CB; border-radius: 5px; padding: 12px 14px; }
-  .about-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4A8C8C; margin-bottom: 5px; }
-  .about-rule { border: none; border-top: 0.75px solid #D6D2CB; margin-bottom: 7px; }
-  .about-text { font-size: 13px; line-height: 1.55; color: #5C5C5C; }
-
-  /* CTA */
-  .cta-box { background: #1A1A2A; border-radius: 5px; padding: 16px 14px; text-align: center; }
-  .cta-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: white; margin-bottom: 4px; }
-  .cta-desc { font-size: 13px; color: #8AABAB; line-height: 1.5; margin-bottom: 7px; }
-  .cta-email { font-size: 14px; font-weight: 600; color: #4A8C8C; }
-
-  /* FOOTER */
-  .footer {
-    border-top: 0.75px solid #D6D2CB;
-    padding-top: 10px;
-    margin-top: 20px;
-    text-align: center;
-    font-size: 10px;
-    color: #B0AAA0;
-    letter-spacing: 0.06em;
-  }
-
-  /* ── RESPONSIVE ── */
-
-  /* Tablet: sidebar stacks below, still readable */
-  @media (max-width: 720px) {
-    .page {
-      padding: 24px 24px 20px;
-    }
-
-    .logo {
-      font-size: 34px;
-    }
-
-    .body {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .right {
-      gap: 12px;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 480px) {
-    .page {
-      padding: 20px 18px 20px;
-    }
-
-    .logo {
-      font-size: 28px;
-    }
-
-    .tagline {
-      font-size: 13px;
-    }
-
-    .eyebrow {
-      font-size: 9px;
-    }
-
-    .body-text {
-      font-size: 15px;
-    }
-
-    .m-phase {
-      font-size: 16px;
-    }
-
-    .engage-price {
-      font-size: 28px;
-    }
-
-    .early-price {
-      font-size: 26px;
-    }
-
-    .cta-title {
-      font-size: 19px;
-    }
-  }
-
-  @media print {
-    body { margin: 0; }
-    .page { max-width: 100%; padding: 24px 28px 16px; }
-    .body { grid-template-columns: 1fr 280px; }
-  }
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn-clay, .cta-btn { transition: none; }
+}
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="eyebrow">College Planning &middot; Project Management Approach</div>
-    <div class="logo">Clear Path College Planning</div>
-    <div class="rule-thin"></div>
-    <div class="tagline">College applications are a project. Treat them like one.</div>
-  </div>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- BODY -->
-  <div class="body">
+<!-- ── HEADER / NAV ── -->
+<header class="site-header">
+  <nav class="site-nav" aria-label="Primary">
+    <a class="nav-brand" href="#">College Chartered</a>
 
-    <!-- LEFT -->
-    <div class="left">
+    <ul class="nav-primary" id="nav-primary" role="list">
+      <li><a class="nav-link" href="#included">What's Included</a></li>
+      <li><a class="nav-link" href="#about">About</a></li>
+      <li><a class="nav-link" href="#pricing">Pricing</a></li>
+    </ul>
 
-      <div class="label">What is Clear Path?</div>
-      <hr>
-      <p class="body-text">Most families experience the college application process as chaotic &mdash; a blur of deadlines, competing priorities, and anxiety. Clear Path brings professional project management discipline to the process. You get a real plan, a clear timeline, and someone accountable for keeping it moving.</p>
+    <!-- Priority-plus overflow container -->
+    <div class="nav-more" id="nav-more" hidden>
+      <button
+        class="nav-more-btn"
+        id="nav-more-btn"
+        aria-expanded="false"
+        aria-controls="nav-overflow"
+        aria-haspopup="true"
+        type="button"
+      >More</button>
+      <div
+        class="nav-overflow"
+        id="nav-overflow"
+        role="menu"
+        aria-hidden="true"
+      ></div>
+    </div>
 
-      <div class="label">What&rsquo;s Included</div>
-      <hr>
-      <div class="service">
-        <div class="service-title">School List Development</div>
-        <div class="service-desc">Start with 20+ options. Narrow to 8&ndash;10 schools that genuinely fit &mdash; academically, culturally, and personally.</div>
-      </div>
-      <div class="service">
-        <div class="service-title">Professor Outreach Coaching</div>
-        <div class="service-desc">Connect with faculty before you apply. A research-backed way to evaluate real fit that most families never think to do.</div>
-      </div>
-      <div class="service">
-        <div class="service-title">Timeline &amp; Deadline Management</div>
-        <div class="service-desc">A shared project plan from fall junior year through submission. Every milestone, mapped.</div>
-      </div>
-      <div class="service">
-        <div class="service-title">Structured Check-ins</div>
-        <div class="service-desc">Lighter touchpoints early, weekly sessions during application crunch (Sept&ndash;Nov senior year).</div>
-      </div>
-      <div class="service">
-        <div class="service-title">Parent Communication</div>
-        <div class="service-desc">Regular updates so you&rsquo;re informed without becoming the project manager yourself.</div>
-      </div>
+    <a class="nav-cta" href="#contact">Let's talk &#8594;</a>
+  </nav>
+</header>
 
-      <div class="label">The Timeline</div>
-      <hr>
-      <div class="timeline">
-        <div class="milestone">
-          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
-          <div class="milestone-card"><div class="m-timing">Fall, Junior Year</div><div class="m-phase">Kickoff &amp; Discovery</div><div class="m-desc">Values, goals, and building the long list together</div></div>
+<!-- ── MAIN ── -->
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-h1">
+<p class="eyebrow" aria-hidden="true">College Application Management</p>
+    <h1 class="hero-h1" id="hero-h1">
+      There's a better way to get through the college process,<br>start to finish.<br><em>It starts with a plan.</em>
+    </h1>
+    <p class="hero-body">Most families experience this as years of arguments, missed deadlines, last-minute scrambles, and mounting anxiety. I'm a PMP-certified project manager, and I run the college application process the same way I run everything else: with a real plan, clear milestones, and someone accountable for execution.</p>
+    <a class="btn-clay" href="#contact">Schedule a free 30-minute call</a>
+  </section>
+
+  <!-- WHAT IS COLLEGE CHARTERED -->
+  <section class="intro-section" aria-labelledby="intro-h2">
+    <div class="intro-inner">
+      <div>
+        <h2 class="intro-h2" id="intro-h2">The college application process, managed.</h2>
+        <p class="intro-body">College Chartered is not traditional college counseling. I don't write their essays, outreach emails, or complete their scholarship applications for them.</p>
+        <p class="intro-body intro-body--lead">What I do is manage everything around it.</p>
+        <p class="intro-body">I build the plan, own the timeline, run the check-ins, and make sure every deadline is hit. Your student has a structure they can work within. You have visibility without being responsible for enforcing it. And the process gets done — on time, without chaos.</p>
+        <p class="intro-body">Running a complex, high-stakes project without a project manager is how things go sideways. That's as true for college applications as it is for anything else.</p>
+        <div class="intro-testimonial">
+          <blockquote class="intro-testimonial-quote">"Testimonial coming soon."</blockquote>
+          <cite class="intro-testimonial-cite">— Family name, graduating class</cite>
         </div>
-        <div class="milestone">
-          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
-          <div class="milestone-card"><div class="m-timing">Spring, Junior Year</div><div class="m-phase">Research &amp; Outreach</div><div class="m-desc">Campus research, professor outreach, narrowing the list</div></div>
-        </div>
-        <div class="milestone">
-          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
-          <div class="milestone-card"><div class="m-timing">Summer Before Senior Year</div><div class="m-phase">Strategy &amp; Setup</div><div class="m-desc">Final list locked, application strategy, Common App prep</div></div>
-        </div>
-        <div class="milestone">
-          <div class="dot-track"><div class="dot"></div><div class="connector"></div></div>
-          <div class="milestone-card"><div class="m-timing">Sept &ndash; Nov, Senior Year</div><div class="m-phase">Application Crunch</div><div class="m-desc">Weekly check-ins, deadline tracking, submission</div></div>
-        </div>
+      </div>
+      <div class="intro-timeline">
+        <ol class="timeline-list">
+          <li class="timeline-item">
+            <div class="timeline-time">Fall, Junior Year</div>
+            <div>
+              <h3 class="timeline-phase">Kickoff &amp; Discovery</h3>
+              <p class="timeline-desc">Values, goals, and the long list. What does your student want? What matters? What are we building toward? This is the foundation everything else sits on.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-time">Winter/Spring, Junior Year</div>
+            <div>
+              <h3 class="timeline-phase">Research &amp; Outreach</h3>
+              <p class="timeline-desc">Campus research, professor outreach, narrowing the school list. Your student develops real criteria for fit and starts making meaningful connections which help narrow and focus the process.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-time">Summer Before Senior Year</div>
+            <div>
+              <h3 class="timeline-phase">Strategy &amp; Setup</h3>
+              <p class="timeline-desc">Final list locked. Application strategy set. Common App prep begins. By September, we're ready to execute.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-time">September–November, Senior Year</div>
+            <div>
+              <h3 class="timeline-phase">Application Crunch</h3>
+              <p class="timeline-desc">Weekly check-ins, deadline tracking, submission. This is where having a plan pays off. No scrambling or last-minute chaos. We execute together.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <div class="timeline-time">Senior Spring</div>
+            <div>
+              <h3 class="timeline-phase">Decisions &amp; Finish Strong</h3>
+              <p class="timeline-desc">As acceptances and offers arrive, decisions are made, but the work of graduating isn't done. I help your student keep their eyes on the prize through the end.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED + TIMELINE -->
+  <section class="services-section" id="included" aria-labelledby="services-h2">
+    <div class="services-inner">
+      <p class="sec-label" aria-hidden="true">What's Included</p>
+      <h2 class="sec-h2" id="services-h2">Everything tracked, nothing missed, junior year through graduation.</h2>
+      <div class="services-grid">
+        <article class="service-item">
+          <h3 class="service-name">School List Development</h3>
+          <p class="service-desc">Start with 20+ options. Narrow systematically to 8–10 schools that fit academically, culturally, and personally. A list your student actually wants to work through. I help your student with research and filtering this list.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-name">Professor Outreach Coaching</h3>
+          <p class="service-desc">As the list is being reviewed, your student connects with faculty at target schools. This helps them learn about the school and program, and make a meaningful impression on faculty. I coach them through it.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-name">Timeline &amp; Deadline Management</h3>
+          <p class="service-desc">A shared project plan from fall of junior year through submission. Every milestone mapped. Every deadline visible. No surprises.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-name">Structured Check-ins</h3>
+          <p class="service-desc">Lighter touchpoints early, weekly sessions during application crunch (September through November of senior year). Consistent, accountable, predictable.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-name">Parent Communication</h3>
+          <p class="service-desc">Regular updates so you know where things stand, without becoming the one responsible for keeping them on track.</p>
+        </article>
       </div>
 
     </div>
+  </section>
 
-    <!-- RIGHT -->
-    <div class="right">
-
-      <!-- Full Engagement -->
-      <div class="box engage-box">
-        <div class="box-header">Full Engagement</div>
-        <div class="box-body">
-          <div class="engage-price">$5,000</div>
-          <div class="engage-detail">Fall, Junior Year &ndash; Fall, Senior Year<br>Flat fee &middot; Payable in 4 installments over the engagement</div>
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing" aria-labelledby="pricing-h2">
+    <div class="pricing-inner">
+      <p class="sec-label" aria-hidden="true">Pricing</p>
+      <h2 class="sec-h2" id="pricing-h2">Flat fee. No hourly surprises.</h2>
+<div class="pricing-grid">
+        <div class="price-card featured">
+          <p class="price-type">Full Engagement</p>
+          <p class="price-amount">$5,000</p>
+          <p class="price-period">Fall junior year through fall senior year</p>
+          <p class="price-desc">For families who want full support from the beginning: a real plan, consistent accountability, and someone managing the process all the way through submission. Flat fee, payable in four installments over the course of the engagement.</p>
+        </div>
+        <div class="price-card">
+          <p class="price-type">Early Start Session</p>
+          <p class="price-amount">$500</p>
+          <p class="price-period">Single 90-minute session · Available anytime</p>
+          <p class="price-desc">For families who aren't ready for full engagement but want to get oriented early. Understand the application process, review what to build toward, and ask every question you didn't know you had. One session can meaningfully change how the next two years go.</p>
         </div>
       </div>
-
-      <!-- Early Start -->
-      <div class="box early-box">
-        <div class="box-header">Early Start Session</div>
-        <div class="box-body">
-          <div class="early-title">Freshman &amp; Sophomore Families</div>
-          <div class="early-desc">A single 90-minute session to understand the application process, review what to build toward, and ask every question you didn&rsquo;t know you had. Available anytime &mdash; fall is ideal.</div>
-          <div class="early-price">$500</div>
-        </div>
-      </div>
-
-      <!-- Not Included -->
-      <div class="not-box">
-        <div class="not-label">Not Included</div>
-        <div class="not-rule"></div>
-        <div class="not-text">Clear Path focuses on the process and the timeline &mdash; not essays, financial aid, or test prep.</div>
-      </div>
-
-      <!-- About -->
-      <div class="about-box">
-        <div class="about-label">About Megan</div>
-        <div class="about-rule"></div>
-        <div class="about-text">Megan Notarte is a PMP-certified executive leader with 15+ years managing complex initiatives at tech organizations. She has spent her career building systems that help people navigate complicated, high-stakes processes without losing their minds. She brought that same discipline to college planning for her own family, and Clear Path is the result: a structured, human approach to one of the most stressful projects a family will ever take on.</div>
-      </div>
-
-      <!-- CTA -->
-      <div class="cta-box">
-        <div class="cta-title">Let&rsquo;s talk.</div>
-        <div class="cta-desc">Free 30-minute call to see if<br>Clear Path is the right fit.</div>
-        <div class="cta-email">megan@clearpathcollege.com</div>
-      </div>
-
     </div>
-  </div>
+  </section>
 
-  <!-- FOOTER -->
-  <div class="footer">Clear Path College Planning &middot; clearpathcollege.com</div>
 
-</div>
+<!-- ABOUT + CONTACT CTA -->
+  <section class="about-section" id="about" aria-labelledby="about-h2">
+    <div class="about-inner">
+      <div>
+        <p class="sec-label" aria-hidden="true">About Megan</p>
+        <h2 class="about-h2" id="about-h2">A project manager<br>who <em>gets it done.</em></h2>
+        <p class="about-body">I'm Megan Notarte, a PMP-certified executive with 15+ years managing complex initiatives at technology organizations. I've spent my career building systems that help people navigate complicated, high-stakes processes without losing their minds.</p>
+        <p class="about-body">When my own family went through the college application process, I ran it the same way I run everything else: a real plan, clear milestones, structured check-ins. It worked. College Chartered is what I built from that experience.</p>
+        <p class="about-body">I'm a project manager who has guided students through this process from start to finish and who will make sure it actually gets done.</p>
+        <p class="about-cred">PMP Certified · Portland, OR</p>
+      </div>
+      <div class="cta-card" id="contact">
+        <p class="cta-title">Let's talk.</p>
+        <p class="cta-desc">A free 30-minute call to see if College Chartered is the right fit for your family.</p>
+        <a class="cta-btn" href="#">Schedule a Call</a>
+        <p class="cta-email">or email <a href="mailto:megan@[domain].com">megan@[domain].com</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="footer-brand">College Chartered · College Application Management</span>
+  <span class="footer-note">&copy; 2025 Megan Notarte · Portland, OR</span>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Priority-plus nav ── */
+  var navList   = document.getElementById('nav-primary');
+  var moreWrap  = document.getElementById('nav-more');
+  var moreBtn   = document.getElementById('nav-more-btn');
+  var overflow  = document.getElementById('nav-overflow');
+
+  if (!navList || !moreBtn || !overflow) return;
+
+  var items = Array.from(navList.querySelectorAll('li'));
+
+  function closeOverflow() {
+    overflow.setAttribute('aria-hidden', 'true');
+    moreBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function openOverflow() {
+    overflow.setAttribute('aria-hidden', 'false');
+    moreBtn.setAttribute('aria-expanded', 'true');
+  }
+
+  function measureNavAvailable() {
+    var nav     = navList.closest('.site-nav');
+    var brand   = nav.querySelector('.nav-brand');
+    var cta     = nav.querySelector('.nav-cta');
+    var style   = getComputedStyle(nav);
+    var padH    = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+    var gap     = parseFloat(style.gap) || 40;
+
+    /* Available for the ul = nav inner width - brand - gap - cta - gap */
+    return nav.offsetWidth - padH - brand.offsetWidth - gap - cta.offsetWidth - gap;
+  }
+
+  function calcListWidth(visibleItems) {
+    if (visibleItems.length === 0) return 0;
+    var listGap = parseFloat(getComputedStyle(navList).gap) || 36;
+    return visibleItems.reduce(function (sum, el, i) {
+      return sum + el.offsetWidth + (i < visibleItems.length - 1 ? listGap : 0);
+    }, 0);
+  }
+
+  function update() {
+    /* Reset: show everything */
+    items.forEach(function (li) { li.hidden = false; });
+    moreWrap.hidden = true;
+    overflow.innerHTML = '';
+    closeOverflow();
+
+    var available  = measureNavAvailable();
+    var listGap    = parseFloat(getComputedStyle(navList).gap) || 36;
+    var allVisible = items.filter(function (li) { return !li.hidden; });
+
+    if (calcListWidth(allVisible) <= available) return; /* fits — done */
+
+    /* Show More button and reserve its width */
+    moreWrap.hidden = false;
+    var moreW       = moreWrap.offsetWidth + listGap;
+    var availWithMore = available - moreW;
+
+    /* Hide items right-to-left until the list fits */
+    var overflowed = [];
+    for (var i = items.length - 1; i >= 0; i--) {
+      var visible = items.filter(function (li) { return !li.hidden; });
+      if (calcListWidth(visible) <= availWithMore) break;
+      items[i].hidden = true;
+      overflowed.unshift(i);
+    }
+
+    /* Populate dropdown in DOM order */
+    overflowed.forEach(function (idx) {
+      var link = items[idx].querySelector('a');
+      if (!link) return;
+      var a = document.createElement('a');
+      a.href = link.getAttribute('href') || '#';
+      a.textContent = link.textContent.trim();
+      a.setAttribute('role', 'menuitem');
+      overflow.appendChild(a);
+    });
+  }
+
+  /* Toggle */
+  moreBtn.addEventListener('click', function () {
+    var isOpen = moreBtn.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeOverflow() : openOverflow();
+  });
+
+  /* Close on outside click */
+  document.addEventListener('click', function (e) {
+    if (!moreWrap.contains(e.target)) closeOverflow();
+  });
+
+  /* Close on Escape */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && moreBtn.getAttribute('aria-expanded') === 'true') {
+      closeOverflow();
+      moreBtn.focus();
+    }
+  });
+
+  /* Debounced resize */
+  var timer;
+  window.addEventListener('resize', function () {
+    clearTimeout(timer);
+    timer = setTimeout(update, 120);
+  });
+
+  update();
+}());
+</script>
+
 </body>
 </html>
