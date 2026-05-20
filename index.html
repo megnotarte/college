@@ -543,17 +543,62 @@ body {
 }
 .cta-btn:hover { background: var(--dark); color: var(--white); }
 
-.cta-email {
-  margin-top: 16px;
+.cta-divider {
+  margin: 32px 0 0;
   font-size: 13px;
-  color: rgba(255,255,255,.62);
+  color: rgba(255,255,255,.5);
 }
-.cta-email a {
-  color: rgba(255,255,255,.82);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+.contact-form {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.cta-email a:hover { color: var(--white); }
+.contact-form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  margin-bottom: 6px;
+}
+.contact-form-row { margin-top: 16px; }
+.contact-form-input,
+.contact-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 2px;
+  color: var(--white);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  outline: none;
+}
+.contact-form-input:focus,
+.contact-form-textarea:focus { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.15); }
+.contact-form-input::placeholder,
+.contact-form-textarea::placeholder { color: rgba(255,255,255,.35); }
+.contact-form-textarea { resize: vertical; min-height: 100px; }
+.contact-form-submit {
+  margin-top: 20px;
+  padding: 14px 32px;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.55);
+  border-radius: 2px;
+  color: var(--white);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.contact-form-submit:hover { background: rgba(255,255,255,.1); border-color: var(--white); }
 
 /* ── Footer ── */
 footer {
@@ -848,8 +893,23 @@ section[id], div[id] { scroll-margin-top: 88px; }
       <div class="cta-card" id="contact">
         <p class="cta-title">Let's talk.</p>
         <p class="cta-desc">A free 30-minute call to see if College Chartered is the right fit for your family.</p>
-        <a class="cta-btn" href="#">Schedule a Call</a>
-        <p class="cta-email">or email <a href="mailto:megan@[domain].com">megan@[domain].com</a></p>
+        <a class="cta-btn" href="https://calendar.app.google/4BjvwMLCSoQvj9Aj6" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+        <p class="cta-divider">or send a message</p>
+        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-name">Name</label>
+            <input class="contact-form-input" id="contact-name" type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-email">Email</label>
+            <input class="contact-form-input" id="contact-email" type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="contact-form-row">
+            <label class="contact-form-label" for="contact-message">Message</label>
+            <textarea class="contact-form-textarea" id="contact-message" name="message" placeholder="Tell me a bit about where you are in the process…" required></textarea>
+          </div>
+          <button class="contact-form-submit" type="submit">Send Message</button>
+        </form>
       </div>
     </div>
   </section>
