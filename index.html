@@ -565,6 +565,8 @@ body {
   margin-bottom: 6px;
 }
 .contact-form-row { margin-top: 16px; }
+.contact-form-row-split { margin-top: 16px; display: flex; gap: 12px; }
+.contact-form-row-split > div { flex: 1; min-width: 0; }
 .contact-form-input,
 .contact-form-textarea {
   width: 100%;
@@ -896,13 +898,15 @@ section[id], div[id] { scroll-margin-top: 88px; }
         <a class="cta-btn" href="https://calendar.app.google/4BjvwMLCSoQvj9Aj6" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
         <p class="cta-divider">or send a message</p>
         <form class="contact-form" action="https://formspree.io/f/xykvebpw" method="POST">
-          <div class="contact-form-row">
-            <label class="contact-form-label" for="contact-name">Name</label>
-            <input class="contact-form-input" id="contact-name" type="text" name="name" placeholder="Your name" required>
-          </div>
-          <div class="contact-form-row">
-            <label class="contact-form-label" for="contact-email">Email</label>
-            <input class="contact-form-input" id="contact-email" type="email" name="email" placeholder="your@email.com" required>
+          <div class="contact-form-row-split">
+            <div>
+              <label class="contact-form-label" for="contact-name">Name</label>
+              <input class="contact-form-input" id="contact-name" type="text" name="name" placeholder="Your name" required>
+            </div>
+            <div>
+              <label class="contact-form-label" for="contact-email">Email</label>
+              <input class="contact-form-input" id="contact-email" type="email" name="email" placeholder="your@email.com" required>
+            </div>
           </div>
           <div class="contact-form-row">
             <label class="contact-form-label" for="contact-message">Message</label>
