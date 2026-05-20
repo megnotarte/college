@@ -83,9 +83,6 @@ body {
 }
 
 .nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   font-family: 'Fraunces', serif;
   font-size: 19px;
   font-weight: 400;
@@ -93,11 +90,6 @@ body {
   text-decoration: none;
   flex-shrink: 0;
   white-space: nowrap;
-}
-.nav-logo {
-  height: 40px;
-  width: auto;
-  flex-shrink: 0;
 }
 
 .nav-primary {
@@ -690,31 +682,7 @@ section[id], div[id] { scroll-margin-top: 88px; }
 <!-- ── HEADER / NAV ── -->
 <header class="site-header">
   <nav class="site-nav" aria-label="Primary">
-    <a class="nav-brand" href="#">
-      <svg class="nav-logo" viewBox="10 8 360 198" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <line x1="15" y1="200" x2="365" y2="200" stroke="#0D1F18" stroke-width="1.5"/>
-        <path d="M 60 200 A 130 130 0 0 1 320 200" stroke="#1A6B47" stroke-width="1" fill="none"/>
-        <circle cx="60"  cy="200" r="3.5" fill="#1A6B47"/>
-        <circle cx="70"  cy="150" r="3"   fill="#1A6B47"/>
-        <circle cx="98"  cy="108" r="3"   fill="#1A6B47"/>
-        <circle cx="140" cy="80"  r="3"   fill="#1A6B47"/>
-        <circle cx="240" cy="80"  r="3"   fill="#1A6B47"/>
-        <circle cx="282" cy="108" r="3"   fill="#1A6B47"/>
-        <circle cx="310" cy="150" r="3"   fill="#1A6B47"/>
-        <circle cx="320" cy="200" r="3.5" fill="#1A6B47"/>
-        <polygon points="40,200 190,192 190,208"   fill="#0D1F18"/>
-        <line x1="190" y1="200" x2="116" y2="169" stroke="#0D1F18" stroke-width="1.5" stroke-linecap="round"/>
-        <polygon points="91,101 186,204 194,196"   fill="#0D1F18"/>
-        <line x1="190" y1="200" x2="165" y2="140" stroke="#0D1F18" stroke-width="2"   stroke-linecap="round"/>
-        <polygon points="190,12 184,200 196,200"   fill="#0D1F18"/>
-        <line x1="190" y1="200" x2="215" y2="140" stroke="#0D1F18" stroke-width="2"   stroke-linecap="round"/>
-        <polygon points="289,101 186,196 194,204"  fill="#0D1F18"/>
-        <line x1="190" y1="200" x2="264" y2="169" stroke="#0D1F18" stroke-width="1.5" stroke-linecap="round"/>
-        <polygon points="340,200 190,192 190,208"  fill="#0D1F18"/>
-        <path d="M 180 200 A 10 10 0 0 1 200 200 Z" fill="#0D1F18"/>
-      </svg>
-      College Chartered
-    </a>
+    <a class="nav-brand" href="#">College Chartered</a>
 
     <ul class="nav-primary" id="nav-primary" role="list">
       <li><a class="nav-link" href="#included">What's Included</a></li>
