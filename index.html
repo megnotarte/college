@@ -479,8 +479,23 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 64px 80px;
   align-items: start;
+}
+
+.about-cta { grid-column: 1 / -1; }
+
+.about-photo {
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .about-h2 {
@@ -887,13 +902,22 @@ section[id], div[id] { scroll-margin-top: 88px; }
 <!-- ABOUT + CONTACT CTA -->
   <section class="about-section" id="about" aria-labelledby="about-h2">
     <div class="about-inner">
-      <div>
+
+      <!-- Row 1, left: bio -->
+      <div class="about-bio">
         <p class="sec-label" aria-hidden="true">About Megan</p>
         <h2 class="about-h2" id="about-h2">A project manager<br>who <em>gets it done.</em></h2>
-<p class="about-body">I'm Megan Notarte, a PMP-certified executive with 15+ years managing complex initiatives at technology organizations. I've spent my career building systems that help people navigate complicated, high-stakes processes without losing their minds.</p>
+        <p class="about-body">I'm Megan Notarte, a PMP-certified executive with 15+ years managing complex initiatives at technology organizations. I've spent my career building systems that help people navigate complicated, high-stakes processes without losing their minds.</p>
         <p class="about-body">When my own family went through the college application process, I approached it like a traditional project in the corporate world, with a plan, milestones, and structured check ins. This process worked so well that I built College Chartered with all I've learned.</p>
       </div>
-      <div class="cta-card" id="contact">
+
+      <!-- Row 1, right: portrait -->
+      <div class="about-photo">
+        <img src="megannotarte.jpg" alt="Megan Notarte" width="1024" height="1535">
+      </div>
+
+      <!-- Row 2: CTA spanning both columns -->
+      <div class="about-cta cta-card" id="contact">
         <p class="cta-title">Let's talk.</p>
         <p class="cta-desc">A free 30-minute call to see if College Chartered is the right fit for your family.</p>
         <a class="cta-btn" href="https://calendar.app.google/4BjvwMLCSoQvj9Aj6" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
@@ -916,6 +940,7 @@ section[id], div[id] { scroll-margin-top: 88px; }
           <button class="contact-form-submit" type="submit">Send Message</button>
         </form>
       </div>
+
     </div>
   </section>
 
