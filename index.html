@@ -501,6 +501,16 @@ body {
 }
 .about-body + .about-body { margin-top: 16px; }
 
+.about-photo {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  margin-bottom: 28px;
+}
+
 .about-cred {
   margin-top: 28px;
   font-size: 12px;
@@ -887,6 +897,7 @@ section[id], div[id] { scroll-margin-top: 88px; }
   <section class="about-section" id="about" aria-labelledby="about-h2">
     <div class="about-inner">
       <div>
+        <img class="about-photo" src="megannotarte.jpg" alt="Megan Notarte">
         <p class="sec-label" aria-hidden="true">About Megan</p>
         <h2 class="about-h2" id="about-h2">A project manager<br>who <em>gets it done.</em></h2>
         <p class="about-body">I'm Megan Notarte, a PMP-certified executive with 15+ years managing complex initiatives at technology organizations. I've spent my career building systems that help people navigate complicated, high-stakes processes without losing their minds.</p>
