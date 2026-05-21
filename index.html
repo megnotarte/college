@@ -913,7 +913,10 @@ section[id], div[id] { scroll-margin-top: 88px; }
 
       <!-- Row 1, right: portrait -->
       <div class="about-photo">
-        <img src="megannotarte.jpg" alt="Megan Notarte" width="1024" height="1535">
+        <picture>
+          <source srcset="megannotarte.webp" type="image/webp">
+          <img src="megannotarte.jpg" alt="Megan Notarte" width="1024" height="1535" loading="lazy">
+        </picture>
       </div>
 
       <!-- Row 2: CTA spanning both columns -->
