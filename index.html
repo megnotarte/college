@@ -435,19 +435,30 @@ body {
   font-size: 68px;
   font-weight: 300;
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--dark);
 }
 .price-card.featured .price-amount { color: var(--white); }
 
-.price-period {
-  font-size: 15px;
-  color: var(--muted);
-  margin-bottom: 20px;
+.price-unit {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 17px;
   font-weight: 300;
-  font-style: italic;
+  vertical-align: middle;
+  letter-spacing: 0;
+  font-style: normal;
+  color: var(--muted);
 }
-.price-card.featured .price-period { color: rgba(255,255,255,.5); }
+.price-card.featured .price-unit { color: rgba(255,255,255,.55); }
+
+.price-total {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+.price-card.featured .price-total { color: rgba(255,255,255,.7); }
 
 .price-desc {
   font-size: 16px;
@@ -895,17 +906,16 @@ section[id], div[id] { scroll-margin-top: 88px; }
       <p class="sec-label" aria-hidden="true">Pricing</p>
 <div class="pricing-grid">
         <div class="price-card featured">
-          <p class="price-type">Full Engagement</p>
-          <p class="price-amount">$3,900</p>
-          <p class="price-period">Junior year through graduation</p>
-          <p class="price-desc">For families who want full support from the beginning.<br /><br />Payable in six installments of $650.
-A limited number of reduced-fee spots are available.</p>
+          <p class="price-type">Full Engagement – Junior and Senior Year</p>
+          <p class="price-amount">$650<span class="price-unit"> per installment</span></p>
+          <p class="price-total">$3,900 total · 6 installments</p>
+          <p class="price-desc">For families who want full support including school list development, professor outreach coaching, timeline and deadline management, and structured check-ins from junior year through graduation.<br /><br />A limited number of reduced-fee spots are available.</p>
         </div>
         <div class="price-card">
           <p class="price-type">Get Started Session</p>
           <p class="price-amount">$500</p>
           <p class="price-period">Single 90-minute session · Available anytime</p>
-          <p class="price-desc">For families who aren't ready for full engagement but want to get oriented early. Understand the application process, review what to build toward, and ask every question you didn't know you had. One session can meaningfully change this entire experience for you.</p>
+          <p class="price-desc">For families who aren't ready for full engagement but want to get oriented. Understand the application process, review what to build toward, and ask every question you didn't know you had. One session can meaningfully change this entire experience for you.</p>
         </div>
       </div>
     </div>
